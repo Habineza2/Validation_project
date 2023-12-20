@@ -1,0 +1,142 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participant List</title>
+    
+    <style>
+      
+    .participant-section{
+       
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        padding: 20px;
+        transform: translate(-50%, -50%);
+        width: 850px;
+        
+        max-height: 80vh;
+        overflow-y: auto;
+        
+        background-color: tan;
+        
+        
+        background-repeat: no-repeat;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 2px solid #333;
+
+        background-size: 1800px 900px;
+        background-repeat: no-repeat;
+      
+        background-attachment: fixed;
+        background-size: cover; 
+        background-position: center;
+        background-image: url('https://st2.depositphotos.com/42900380/44617/i/450/depositphotos_446174076-stock-photo-abstract-wide-technology-background-hexagons.jpg');
+       
+
+    }
+    
+    .vehicles-section{
+            display: none;
+            background-image: url('https://st2.depositphotos.com/42900380/44617/i/450/depositphotos_446174076-stock-photo-abstract-wide-technology-background-hexagons.jpg');
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            padding: 20px;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            max-height: 80vh;
+            overflow-y: auto;
+            background-color: aqua;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #333;
+      }
+      
+
+      body {
+        font-family: Arial, sans-serif;
+            
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-attachment: fixed;
+            background-size: cover; 
+            background-position: center;
+            background-image: url('https://i.pinimg.com/736x/3d/38/4d/3d384d829dbf4b678cfea617114e149d.jpg');
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'validationApp/style3.css'%}">
+</head>
+<body>
+    
+    <div  class="participant-section" id="participant-section"  >
+        <p><h2>Participant Information Form</h2></p>
+    <form method="post" action="{% url 'participant_form' %}" class="needs-validation" novalidate>
+        
+        {% csrf_token %}
+        {{ participant_form | crispy }}
+        <div>
+        <button type="button" class="btn btn-primary" id="addCarBtn">Add Vehicle</button>
+        
+          <div class="vehicles-section" id="vehicles-section">
+            <h2>Vehicles Information Form </h2>
+            {{ vehicle_formset.management_form }}
+            {% for form in vehicle_formset %}
+                {{ form | crispy }}
+            {% endfor %}
+            <button type="button" class="btn btn-primary btn-block" id="CloseCarBtn">Add close</button>
+          </div>
+        
+
+        <button type="submit" class="btn btn-secondary">REGISTER</button>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+          $("#addCarBtn").click(function() {
+            $(".vehicles-section").toggle();
+          })
+        })
+        $(document).ready(function() {
+          $("#CloseCarBtn").click(function() {
+            $(".vehicles-section").toggle();
+          })
+        })
+      </script>
+    </body>
+</html>

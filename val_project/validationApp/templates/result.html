@@ -1,0 +1,7 @@
+{% if operation == 'add' %}
+    Result: {{ a|add:b }}
+{% elif operation == 'subtract' %}
+    Result: {{ a|sub:b }}
+{% else %}
+    Invalid operation
+{% endif %}
